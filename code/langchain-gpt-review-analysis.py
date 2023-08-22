@@ -6,6 +6,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import create_extraction_chain
 import os
 from dotenv import load_dotenv, find_dotenv
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 
 # Load environment variables from the .env file.
 load_dotenv(find_dotenv())
@@ -30,7 +32,7 @@ async def main():
 
     # Navigate to the Amazon product reviews URL.
     await navigate_tool.arun(
-        {"url": "https://www.amazon.com/OnePlus-Unlocked-Android-Smartphone-Charging/product-reviews/B07XWGWPH5/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews"}
+        {"url": "https://www.amazon.com/Charger-Certified-Adapter-Lightning-Compatible/product-reviews/B0BW5X89MM/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews"}
     )
 
     # Extract reviews from the webpage using the provided selector.
@@ -38,15 +40,21 @@ async def main():
         {"selector": ".review", "attributes": ["innerText"]}
     )
 
-    # Define the schema for the extracted reviews.
-    schema = {
-        "properties": {
-            "name": {"type": "string"},
-            "review": {"type": "string"},
-            "rating": {"type": "integer"},
-        },
-        "required": ["name", "review", "rating"],
-    }
+    # Define the template for the prompt.
+    prompt_template = """
+    From the reviews delimited by ```
+    Provide a summary of reviews to find pros and cons of the product
+
+    ```
+    {reviews}
+    ```
+    """
+
+    # Initialize the prompt template.
+    prompt = PromptTemplate(
+        template=prompt_template,   
+        input_variables=["reviews"],
+    )
 
     # Initialize the OpenAI Chat model.
     llm = ChatOpenAI(
@@ -56,10 +64,9 @@ async def main():
     )
 
     # Create an extraction chain using the schema and the Chat model.
-    chain = create_extraction_chain(schema, llm)
-
+    chain = LLMChain(llm=llm, prompt=prompt)
     # Print the extracted results.
-    print(chain.run(elements))
+    print(chain.run(reviews=elements))
 
 # Run the main asynchronous function.
 asyncio.run(main())
