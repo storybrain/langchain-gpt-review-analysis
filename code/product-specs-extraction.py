@@ -26,10 +26,11 @@ def main():
         },
         "required": ["name", "ram", "cpu"],
     }
-    llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo",
-                     openai_api_key=os.getenv("OPENAI_API_KEY"))
+    llm = ChatOpenAI(
+        temperature=0, model="gpt-3.5-turbo", openai_api_key=os.getenv("OPENAI_API_KEY")
+    )
     chain = create_extraction_chain(schema, llm)
-    print(chain.run(review_text))
+    print(chain.run(description_text))
 
 
 main()
