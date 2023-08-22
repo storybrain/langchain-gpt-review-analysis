@@ -7,7 +7,7 @@ load_dotenv(find_dotenv())
 
 
 def main():
-    review_text = """
+    description_text = """
     MacBook Pro M2 Max takes its power and efficiency further than ever.
     It delivers exceptional performance whether it's plugged in or not, 
     and now has even longer battery life. Combined with a stunning 
@@ -23,7 +23,6 @@ def main():
             "cpu": {"type": "string"},
             "gpu:": {"type": "string"},
             "display": {"type": "string"},
-            "review": {"type": "string"}
         },
         "required": ["name", "ram", "cpu"],
     }

@@ -7,7 +7,7 @@ A repository that demonstrates the integration of LangChain and GPT-3 to extract
 This repository contains Jupyter Notebooks that illustrate how to:
 
 - Extract product reviews from web pages using LangChain and analyze them with GPT-3.
-- Extract product specifications from given review texts.
+- Extract product specifications from given description texts.
 
 In addition, the `code` folder contains example `.py` scripts showcasing different functionalities.
 
@@ -15,8 +15,8 @@ In addition, the `code` folder contains example `.py` scripts showcasing differe
 
 1. **Notebooks**:
 
-   - `langchain-gpt-review-analysis.ipynb`: This notebook showcases how to scrape product reviews from Amazon and process them using GPT-3.
-   - `product-specs-extraction.ipynb`: This notebook demonstrates extracting product specifications from a MacBook Pro M2 Max review.
+   - `langchain-gpt-review-analysis.ipynb`: This notebook showcases how to scrape product reviews from Amazon and process them using GPT.
+   - `product-specs-extraction.ipynb`: This notebook demonstrates extracting product specifications from description.
 
 2. **Code Folder**:
    - Contains example `.py` scripts illustrating various functionalities.
